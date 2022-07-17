@@ -1,0 +1,34 @@
+@page
+@model ProductsModel
+@{
+    ViewData["Title"] = "Products Page";
+}
+
+<div class="d-flex justify-content-center ">
+<div class="col-md-8">
+  <div>
+	<a class="nav-link" asp-page="/Products/CreateProduct">
+    	<button class="btn btn-primary float-end">Create New Product</button>
+  </a>
+</div>
+	<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+		@foreach (var item in Model._products)
+		{
+    <tr>
+      <th scope="row">@item.Name</th>
+      <td>$ @item.Price</td>
+      <td>@item.Type</td>
+    </tr>
+		}
+  </tbody>
+</table>
+</div>
+</div>
