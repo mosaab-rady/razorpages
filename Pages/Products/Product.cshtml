@@ -1,0 +1,13 @@
+@page "{id:Guid}"
+@model SingleProductModel
+@{
+	ViewData["Title"]=Model.product.Name;
+}
+
+<div>
+	<h1>
+		@Model.product.Name
+	</h1>
+</div>
+
+

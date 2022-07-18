@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using razorWebApp.Context;
 using razorWebApp.Models;
 using razorWebApp.Repositories;
 
@@ -24,5 +21,7 @@ public class ProductsModel : PageModel
 	{
 		_products = await _repository.GetAllProductsAsync();
 	}
+
+
 
 }
