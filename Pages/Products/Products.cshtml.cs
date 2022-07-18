@@ -1,25 +1,28 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using razorWebApp.Context;
 using razorWebApp.Models;
+using razorWebApp.Repositories;
 
 namespace razorWebApp.Pages;
 public class ProductsModel : PageModel
 {
-	private readonly postgresContext _context;
+
+
+	private readonly IProductRepository _repository;
+
+	public ProductsModel(IProductRepository repository)
+	{
+		_repository = repository;
+	}
+
 
 
 	public IEnumerable<Product> _products;
-
-	public ProductsModel(postgresContext context)
-	{
-		_context = context;
-	}
-
-
 	public async Task OnGetAsync()
 	{
-		var products = await _context.Products.ToListAsync();
-		_products = products;
+		_products = await _repository.GetAllProductsAsync();
 	}
+
 }

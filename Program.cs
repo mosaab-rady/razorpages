@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using razorWebApp.Context;
+using razorWebApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<postgresContext>(options =>
 				.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
 				.EnableSensitiveDataLogging()
 );
+
+builder.Services.AddScoped<IProductRepository, PostgresProductsRepository>();
+
 
 var app = builder.Build();
 

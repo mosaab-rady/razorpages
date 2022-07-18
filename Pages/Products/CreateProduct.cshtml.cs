@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using razorWebApp.Context;
 using razorWebApp.Models;
+using razorWebApp.Repositories;
 
 namespace razorWebApp.Pages;
 
 public class CreateProductModel : PageModel
 {
-	private readonly postgresContext _context;
+	private readonly IProductRepository _repository;
 
-	public CreateProductModel(postgresContext context)
+	public CreateProductModel(IProductRepository repository)
 	{
-		_context = context;
+		_repository = repository;
 	}
 
 	public void OnGet()
@@ -36,9 +37,7 @@ public class CreateProductModel : PageModel
 			Type = product.Type,
 			summary = product.summary
 		};
-		await _context.Products.AddAsync(NewProduct);
-		await _context.SaveChangesAsync();
-
+		await _repository.CreateProductAsync(NewProduct);
 		return RedirectToPage("./Products");
 	}
 }
