@@ -1,13 +1,21 @@
-@page "{id:Guid}"
+@page "{id}"
 @model SingleProductModel
 @{
 	ViewData["Title"]=Model.product.Name;
 }
 
-<div>
-	<h1>
-		@Model.product.Name
-	</h1>
+<div class="container d-flex justify-content-start">
+	<div class="col-6">
+		<h1 class="text-info text-capitalize" >@Model.product.Name Product</h1>
+		<div class="d-flex justify-content-between" >
+			<h3 class="text-primary text-capitalize" >@Model.product.Type</h3>
+			<h3 class="text-primary ">$ @Model.product.Price</h3>
+		</div>
+		<p class="text-muted" >@Model.product.summary</p>
+		<a class="text-danger text-capitalize" asp-page="/Products/Index" >
+			back to products
+		</a>
+	</div>
 </div>
 
 

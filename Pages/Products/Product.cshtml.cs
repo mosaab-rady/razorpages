@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using razorWebApp.Models;
 using razorWebApp.Repositories;
+using razorWebApp.Utils;
 
 namespace razorWebApp.Pages;
 
@@ -22,7 +23,7 @@ public class SingleProductModel : PageModel
 
 		if (product is null)
 		{
-			throw new Exception("No Product found with that ID.");
+			throw new AppException("No product found with that ID.", 404);
 		}
 
 		return Page();
