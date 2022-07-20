@@ -26,16 +26,14 @@
             </div>
             <div class="form-group mt-2">
                 <label asp-for="updatedProduct.summary" class="control-label"></label>
-                <textarea  asp-for="updatedProduct.summary" asp-textarea="@Model.product.summary" class="form-control" rows="3">
-									@Model.product.summary
-								</textarea>
+                <input class="form-control" rows="3" asp-for="updatedProduct.summary" value="@Model.product.summary" >
                 <span asp-validation-for="updatedProduct.summary" class="text-danger"></span>
             </div>
             <div  class="form-group mt-2 d-flex align-items-center justify-content-between ">
                 <input type="submit" value="Update" class="btn btn-primary" />
-								<a class="text-danger text-capitalize" asp-page="/Products/Index" >
-									back to products
-								</a>
+				<a class="text-info text-capitalize" asp-page="/Products/Index" >
+				back to products
+				</a>
             </div>
         </form>
     </div>
@@ -44,3 +42,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

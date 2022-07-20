@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using razorWebApp.Models;
 using razorWebApp.Repositories;
 using razorWebApp.Utils;
@@ -49,7 +51,20 @@ public class UpdateProductModel : PageModel
 		existingproduct.Type = updatedProduct.Type ?? existingproduct.Type;
 		existingproduct.summary = updatedProduct.summary ?? existingproduct.summary;
 
-		await _repository.UpdateProductAsync(id, existingproduct);
+		try
+		{
+			await _repository.UpdateProductAsync(id, existingproduct);
+		}
+		catch (DbUpdateException err)
+		{
+			var error = (PostgresException)err.InnerException;
+			if (error.SqlState == "23505")
+			{
+				ModelState.AddModelError("updatedProduct.Name", "A product with that name already exist. Please use another value");
+				return Page();
+			}
+		}
+
 
 		return RedirectToPage("./Product", new { id });
 	}

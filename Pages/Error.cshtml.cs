@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using razorWebApp.Utils;
 
 namespace razorWebApp.Pages;
@@ -41,7 +43,7 @@ public class ErrorModel : PageModel
 		}
 
 	}
-	public void OnPost()
+	public PageResult OnPost()
 	{
 		RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 
@@ -52,11 +54,13 @@ public class ErrorModel : PageModel
 			AppException err = (AppException)exceptionHandlerPathFeature.Error;
 			HttpContext.Response.StatusCode = err.statusCode;
 			Message = err.Message;
+			return Page();
 		}
 		else
 		{
 			HttpContext.Response.StatusCode = 500;
 			Message = "Something Went Wrong!";
+			return Page();
 		}
 
 	}
